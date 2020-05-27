@@ -1,0 +1,44 @@
+---
+stages:
+  - deploy
+
+variables:
+  GIT_SUBMODULE_STRATEGY: recursive
+
+# variables_from_web_interface:
+  # ANSIBLE_VAULT_PASS
+  # SPLUNK_DEPLOY_KEY
+  # SPLUNK_SSH_KEY
+  
+deploy_qa:
+  stage: deploy
+  image: some-ansible-image:latest
+  script:
+    - apk update && apk add rsync
+    - cd afd2
+    - echo "$SPLUNK_SSH_KEY" > afd2.rsa
+    - echo "$SPLUNK_DEPLOY_KEY" > deploykey.rsa
+    - chmod 600 afd2.rsa deploykey.rsa
+    - echo "$ANSIBLE_VAULT_PASS" > vault.pass
+    - chmod o-w .
+    - ansible-playbook main.yml -i hosts/hosts_qa -e deploy_key_path="$(pwd)/deploykey.rsa" -vv
+  only:
+    - schedules
+  except:
+    - prod
+  
+deploy_prod:
+  stage: deploy
+  image: some-ansible-image:latest
+  script:
+    - cd afd2
+    - echo "$SPLUNK_SSH_KEY" > afd2.rsa
+    - echo "$SPLUNK_DEPLOY_KEY" > deploykey.rsa
+    - chmod 600 afd2.rsa deploykey.rsa
+    - echo "$ANSIBLE_VAULT_PASS" > vault.pass
+    - chmod o-w .
+    - ansible-playbook main.yml -i hosts/hosts_prod -e deploy_key_path="$(pwd)/deploykey.rsa" -vv
+  only:
+    - schedules
+  except:
+    - qa
