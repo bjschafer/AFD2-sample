@@ -1,0 +1,6 @@
+indexer_cluster:
+    branches:
+      qa: qa
+      prod: prod
+    deployto:
+      - indexer

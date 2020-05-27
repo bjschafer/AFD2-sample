@@ -1,0 +1,8 @@
+int-hec-cfg:
+    branches:
+      qa: qa
+      prod: prod
+    deployto:
+      - forwarder
+    serverclass:
+      - Internal Heavy Forwarders

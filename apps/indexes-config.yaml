@@ -1,0 +1,9 @@
+indexes-config:
+    branches:
+      qa: qa
+      prod: prod
+    deployto:
+      - forwarder
+    serverclass:
+      - Internal Heavy Forwarders
+      - Non-Cluster Search Heads

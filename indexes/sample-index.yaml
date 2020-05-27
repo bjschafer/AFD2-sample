@@ -1,0 +1,6 @@
+sample-index:
+  name: sample-index
+  owner: Responsible Team <ResponsibleTeam@example.com>
+  description: |
+    This index is used to sample things
+    and also to test them.

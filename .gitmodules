@@ -1,0 +1,3 @@
+[submodule "AFD2"]
+	path = AFD2
+	url = git@github.com:bjschafer/AFD2.git

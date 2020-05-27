@@ -1,0 +1,6 @@
+shconfig:
+    branches:
+      qa: qa
+      prod: prod
+    deployto:
+      - shcluster
